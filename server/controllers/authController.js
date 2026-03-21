@@ -14,7 +14,9 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ msg: "Password min 6 chars" });
     }
 
-    const exists = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const exists = await User.findOne({ email: normalizedEmail });
     if (exists) {
       return res.status(400).json({ msg: "Email already exists" });
     }
@@ -22,15 +24,18 @@ export const registerUser = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password: hashed,
-      role,
+      role: role === "admin" ? "admin" : "student",
     });
+
+    const safeUser = user.toObject();
+    delete safeUser.password;
 
     res.status(201).json({
       token: generateToken(user),
-      user,
+      user: safeUser,
     });
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
@@ -40,8 +45,12 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Email and password required" });
+    }
 
-    const user = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
       return res.status(400).json({ msg: "Invalid credentials" });
@@ -53,9 +62,12 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ msg: "Invalid credentials" });
     }
 
+    const safeUser = user.toObject();
+    delete safeUser.password;
+
     res.json({
       token: generateToken(user),
-      user,
+      user: safeUser,
     });
   } catch (err) {
     res.status(500).json({ msg: "Server error" });
