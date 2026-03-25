@@ -29,6 +29,18 @@ function Unauthorized() {
   );
 }
 
+function StudentDashboardHome() {
+  return <div />;
+}
+
+function AdminDashboardHome() {
+  return <div />;
+}
+
+function EmptyModulePage() {
+  return <div />;
+}
+
 function App() {
   return (
     <Routes>
@@ -50,7 +62,13 @@ function App() {
             <StudentDashboard />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<StudentDashboardHome />} />
+        <Route path="ai-chatbot" element={<EmptyModulePage />} />
+        <Route path="lost-found" element={<EmptyModulePage />} />
+        <Route path="event-management" element={<EmptyModulePage />} />
+        <Route path="complain-feedback" element={<EmptyModulePage />} />
+      </Route>
       <Route
         path="/admin-dashboard"
         element={
@@ -58,7 +76,12 @@ function App() {
             <AdminDashboard />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<AdminDashboardHome />} />
+        <Route path="lost-found" element={<EmptyModulePage />} />
+        <Route path="event-management" element={<EmptyModulePage />} />
+        <Route path="complain-feedback" element={<EmptyModulePage />} />
+      </Route>
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

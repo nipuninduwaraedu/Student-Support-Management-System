@@ -136,6 +136,10 @@ select:focus {
   padding: 28px 20px;
 }
 
+.sidebar-top {
+  margin-bottom: 18px;
+}
+
 .brand {
   font-size: 20px;
   font-weight: 700;
@@ -158,18 +162,124 @@ select:focus {
   margin: 18px 0;
 }
 
+.nav-section-title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
 .side-links a {
   color: #dbeafe;
   padding: 8px 10px;
   border-radius: 8px;
+  border: 1px solid transparent;
 }
 
 .side-links a:hover {
   background: #17233a;
+  border-color: rgba(147, 197, 253, 0.25);
 }
 
 .content {
   padding: 32px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(38, 49, 70, 0.9);
+  background: rgba(2, 6, 23, 0.35);
+  border-radius: 14px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #e0e7ff;
+  background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.45), rgba(139, 92, 246, 0.25));
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.profile-meta {
+  display: grid;
+  gap: 2px;
+}
+
+.profile-name {
+  font-weight: 700;
+}
+
+.profile-email {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.logout-btn {
+  margin-top: 10px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.topbar-subtitle {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-search {
+  width: 340px;
+  max-width: 45vw;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(2, 6, 23, 0.35);
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: rgba(17, 24, 39, 0.6);
+}
+
+.topbar-divider {
+  height: 1px;
+  margin: 18px 0 0;
+  background: rgba(38, 49, 70, 0.9);
 }
 
 .content-header h2 {
@@ -234,5 +344,9 @@ select:focus {
   }
   .grid-cards {
     grid-template-columns: 1fr;
+  }
+  .topbar-search {
+    width: 100%;
+    max-width: none;
   }
 }
