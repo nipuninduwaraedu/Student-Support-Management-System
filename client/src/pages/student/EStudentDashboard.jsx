@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, FileText } from 'lucide-react';
 
-const StudentDashboard = () => {
+const EStudentDashboard = () => {
     const [stats, setStats] = useState({ upcomingEvents: 0, pendingAssignments: 0 });
 
     useEffect(() => {
@@ -60,4 +60,4 @@ const StudentDashboard = () => {
         </div>
     );
 };
-export default StudentDashboard;
+export default EStudentDashboard;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Plus, Trash2, Calendar as CalIcon, FileText, Download, Users } from 'lucide-react';
 import moment from 'moment';
 
-const AdminAssignments = () => {
+const EAdminAssignments = () => {
     const [assignments, setAssignments] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ title: '', description: '', module: '', deadline: '' });
@@ -170,4 +170,4 @@ const AdminAssignments = () => {
         </div>
     );
 };
-export default AdminAssignments;
+export default EAdminAssignments;

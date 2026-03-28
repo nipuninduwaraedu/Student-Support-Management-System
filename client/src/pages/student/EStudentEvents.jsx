@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Calendar as CalIcon, Clock } from 'lucide-react';
 import moment from 'moment';
 
-const StudentEvents = () => {
+const EStudentEvents = () => {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
@@ -46,4 +46,4 @@ const StudentEvents = () => {
         </div>
     );
 };
-export default StudentEvents;
+export default EStudentEvents;

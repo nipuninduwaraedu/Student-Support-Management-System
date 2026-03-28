@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Plus, Trash2, Calendar as CalIcon, Clock } from 'lucide-react';
 import moment from 'moment';
 
-const AdminEvents = () => {
+const EAdminEvents = () => {
     const [events, setEvents] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ title: '', description: '', date: '', time: '', image: null });
@@ -121,4 +121,4 @@ const AdminEvents = () => {
         </div>
     );
 };
-export default AdminEvents;
+export default EAdminEvents;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Calendar as CalIcon, Upload, CheckCircle, AlertTriangle } from 'lucide-react';
 import moment from 'moment';
 
-const StudentAssignments = () => {
+const EStudentAssignments = () => {
     const [assignments, setAssignments] = useState([]);
     const [submissions, setSubmissions] = useState({});
     const [uploadingId, setUploadingId] = useState(null);
@@ -135,4 +135,4 @@ const StudentAssignments = () => {
         </div>
     );
 };
-export default StudentAssignments;
+export default EStudentAssignments;

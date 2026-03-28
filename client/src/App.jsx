@@ -1,35 +1,30 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminEvents from './pages/admin/AdminEvents';
-import AdminAssignments from './pages/admin/AdminAssignments';
+import EAdminDashboard from './pages/admin/EAdminDashboard';
+import EAdminEvents from './pages/admin/EAdminEvents';
+import EAdminAssignments from './pages/admin/EAdminAssignments';
 
-import StudentDashboard from './pages/student/StudentDashboard';
-import StudentEvents from './pages/student/StudentEvents';
-import StudentAssignments from './pages/student/StudentAssignments';
+import EStudentDashboard from './pages/student/EStudentDashboard';
+import EStudentEvents from './pages/student/EStudentEvents';
+import EStudentAssignments from './pages/student/EStudentAssignments';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          
           <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/login" replace />} />
+            <Route index element={<Navigate to="/admin" replace />} />
             
-            <Route path="admin" element={<AdminDashboard />} />
-            <Route path="admin/events" element={<AdminEvents />} />
-            <Route path="admin/assignments" element={<AdminAssignments />} />
+            <Route path="admin" element={<EAdminDashboard />} />
+            <Route path="admin/events" element={<EAdminEvents />} />
+            <Route path="admin/assignments" element={<EAdminAssignments />} />
             
-            <Route path="student" element={<StudentDashboard />} />
-            <Route path="student/events" element={<StudentEvents />} />
-            <Route path="student/assignments" element={<StudentAssignments />} />
+            <Route path="student" element={<EStudentDashboard />} />
+            <Route path="student/events" element={<EStudentEvents />} />
+            <Route path="student/assignments" element={<EStudentAssignments />} />
           </Route>
         </Routes>
       </Router>

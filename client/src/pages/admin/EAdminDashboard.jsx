@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, FileText, CheckCircle } from 'lucide-react';
 
-const AdminDashboard = () => {
+const EAdminDashboard = () => {
     const [stats, setStats] = useState({ events: 0, assignments: 0 });
 
     useEffect(() => {
@@ -55,4 +55,4 @@ const AdminDashboard = () => {
         </div>
     );
 };
-export default AdminDashboard;
+export default EAdminDashboard;
