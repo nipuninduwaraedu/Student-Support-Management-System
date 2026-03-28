@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <section className="text-center mt-8 mb-8" style={{ padding: '4rem 0' }}>
         <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--text-main)', letterSpacing: '-1px' }}>
-          Find What You Lost,<br/> Return What You Found.
+          Find What You Lost,<br /> Return What You Found.
         </h1>
         <p className="text-muted" style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
           Welcome to the Student Lost and Found System. The easiest way to report lost items and claim what is rightfully yours on campus.
@@ -18,11 +18,7 @@ const Home = () => {
           <Link to="/items" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 2rem' }}>
             <Search size={20} /> Browse Lost Items
           </Link>
-          {!user && (
-            <Link to="/register" className="btn btn-outline" style={{ fontSize: '1.125rem', padding: '1rem 2rem' }}>
-              Create an Account
-            </Link>
-          )}
+
         </div>
       </section>
 

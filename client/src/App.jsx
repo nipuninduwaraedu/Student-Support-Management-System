@@ -1,13 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import AdminDashboard from './pages/AdminDashboard';
-import StudentDashboard from './pages/StudentDashboard';
-import LostItems from './pages/LostItems';
-import ItemDetails from './pages/ItemDetails';
-import ClaimSubmission from './pages/ClaimSubmission';
+import Home from './pages/LHome';
+import AdminDashboard from './pages/LAdminDashboard';
+import StudentDashboard from './pages/LStudentDashboard';
+import LostItems from './pages/LLostItems';
+import ItemDetails from './pages/LItemDetails';
+import ClaimSubmission from './pages/LClaimSubmission';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './index.css';
 
@@ -28,8 +26,6 @@ function App() {
           <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               
               <Route path="/items" element={<LostItems />} />
               <Route path="/items/:id" element={<ItemDetails />} />

@@ -29,12 +29,7 @@ const Navbar = () => {
               Logout
             </button>
           </>
-        ) : (
-          <>
-            <Link to="/login" className="nav-link">Login</Link>
-            <Link to="/register" className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>Register</Link>
-          </>
-        )}
+        ) : null}
       </div>
     </nav>
   );
