@@ -1,3 +1,9 @@
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { Search } from 'lucide-react';
+
+const Navbar = () => {
+  const { user, logout } = useAuth();
 import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
@@ -9,11 +15,29 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+    navigate('/login');
     navigate('/');
   };
 
   return (
     <nav className="navbar">
+      <Link to="/" className="nav-brand">
+        <Search size={28} />
+        Lost & Found
+      </Link>
+      <div className="nav-links">
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/items" className="nav-link">Lost Items</Link>
+        {user ? (
+          <>
+            <Link to={user.role === 'Admin' ? '/admin' : '/student'} className="nav-link">
+              Dashboard
+            </Link>
+            <button onClick={handleLogout} className="btn btn-outline" style={{ padding: '0.5rem 1rem' }}>
+              Logout
+            </button>
+          </>
+        ) : null}
       <div className="navbar-container">
         <h1 className="navbar-logo">Student Support</h1>
         <ul className="nav-menu">
