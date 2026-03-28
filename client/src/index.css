@@ -32,6 +32,10 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -380,7 +384,6 @@ h1, h2, h3, h4, h5, h6 {
     0 0 0 1px rgba(255,255,255,0.6) inset;
   animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
-/* Coloured top accent bar */
 .modal-content::before {
   content: '';
   position: absolute;
@@ -391,7 +394,6 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
 }
-/* Modal heading */
 .modal-content h2 {
   font-size: 1.4rem;
   font-weight: 700;
@@ -406,7 +408,6 @@ h1, h2, h3, h4, h5, h6 {
 .modal-content h2 svg {
   color: var(--primary);
 }
-/* Close button */
 .close-btn {
   position: absolute;
   top: 1.25rem;
@@ -427,7 +428,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #fef2f2;
   transform: rotate(90deg);
 }
-/* Form section divider */
 .form-row {
   display: flex;
   gap: 1rem;
@@ -435,14 +435,12 @@ h1, h2, h3, h4, h5, h6 {
 .form-row .form-group {
   flex: 1;
 }
-/* Character counter hint */
 .form-hint {
   font-size: 0.75rem;
   color: var(--text-light);
   margin-top: 0.3rem;
   display: block;
 }
-/* Submit button full-width in modal */
 .modal-submit-btn {
   width: 100%;
   margin-top: 1.5rem;
