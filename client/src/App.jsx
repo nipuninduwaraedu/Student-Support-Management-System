@@ -1,7 +1,3 @@
-import AIChatbotPage from "./features/ai-chatbot/pages/AIChatbotPage.jsx";
-
-function App() {
-  return <AIChatbotPage />;
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import Login from "./pages/Login.jsx";
@@ -10,6 +6,7 @@ import StudentDashboard from "./pages/StudentDashboard.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import { AuthContext } from "./context/AuthContext.jsx";
+import AIChatbotPage from "./features/ai-chatbot/pages/AIChatbotPage.jsx";
 import "./styles/auth.css";
 
 function DashboardRedirect() {
@@ -51,6 +48,7 @@ function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
       <Route
         path="/dashboard"
         element={
@@ -59,6 +57,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+
       <Route
         path="/student-dashboard"
         element={
@@ -68,11 +67,12 @@ function App() {
         }
       >
         <Route index element={<StudentDashboardHome />} />
-        <Route path="ai-chatbot" element={<EmptyModulePage />} />
+        <Route path="ai-chatbot" element={<AIChatbotPage />} />
         <Route path="lost-found" element={<EmptyModulePage />} />
         <Route path="event-management" element={<EmptyModulePage />} />
         <Route path="complain-feedback" element={<EmptyModulePage />} />
       </Route>
+
       <Route
         path="/admin-dashboard"
         element={
@@ -86,6 +86,7 @@ function App() {
         <Route path="event-management" element={<EmptyModulePage />} />
         <Route path="complain-feedback" element={<EmptyModulePage />} />
       </Route>
+
       <Route path="/unauthorized" element={<Unauthorized />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
