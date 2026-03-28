@@ -1,5 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-background {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add some dynamic animated floating orbs in background */
+.app-background::before,
+.app-background::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.5;
+  animation: float 20s infinite linear;
+}
+
+.app-background::before {
+  background: rgba(52, 152, 219, 0.5);
+  top: -10%;
+  left: -10%;
+}
+
+.app-background::after {
+  background: rgba(155, 89, 182, 0.4);
+  bottom: -10%;
+  right: -10%;
+  animation-direction: reverse;
+}
+
+@keyframes float {
+  0% { transform: rotate(0deg) translate(50px) rotate(0deg); }
+  100% { transform: rotate(360deg) translate(50px) rotate(-360deg); }
 :root {
   --primary: #4F46E5;
   --primary-hover: #4338CA;
