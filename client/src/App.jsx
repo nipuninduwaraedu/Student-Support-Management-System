@@ -1,3 +1,7 @@
+import AIChatbotPage from "./features/ai-chatbot/pages/AIChatbotPage.jsx";
+
+function App() {
+  return <AIChatbotPage />;
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import Login from "./pages/Login.jsx";

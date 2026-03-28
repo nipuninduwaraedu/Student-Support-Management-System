@@ -1,3 +1,6 @@
+/* Minimal base; chat UI styles live in styles/chatbot.css */
+body {
+  margin: 0;
 #root {
   min-height: 100vh;
 }
