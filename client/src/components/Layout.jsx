@@ -129,16 +129,32 @@ const Layout = ({ children }) => {
           {user.role === "admin" ? "Administration" : "Student"}
         </div>
         <nav>
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`nav-link ${isNavActive(item.path) ? "active" : ""}`}
-            >
-              <span className="nav-icon">{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.label === "AI Chatbot") {
+              return (
+                <button
+                  key="chatbot"
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event("toggle-chatbot"))}
+                  className="nav-link"
+                  style={{ background: "transparent", border: "none", width: "100%", textAlign: "left", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", color: "inherit", padding: "0.75rem 1rem" }}
+                >
+                  <span className="nav-icon">{item.icon}</span>
+                  {item.label}
+                </button>
+              );
+            }
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-link ${isNavActive(item.path) ? "active" : ""}`}
+              >
+                <span className="nav-icon">{item.icon}</span>
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="sidebar-footer">
           <div className="sidebar-user">

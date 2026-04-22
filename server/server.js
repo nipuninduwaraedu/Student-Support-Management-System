@@ -14,6 +14,7 @@ import assignmentRoutes from "./routes/assignments.js";
 import submissionRoutes from "./routes/submissions.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
+import chatbotRoutes from "./routes/chatbot.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/api/assignments", assignmentRoutes);
 app.use("/api/submissions", submissionRoutes);
 app.use("/api/complaints", complaintRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
