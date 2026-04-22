@@ -15,24 +15,26 @@ function StudentDashboard() {
         </div>
 
         <div className="profile-card">
-          <div className="avatar">{(user?.name || "S").slice(0, 1).toUpperCase()}</div>
+          <div className="avatar">
+            {(user?.name || "S").slice(0, 1).toUpperCase()}
+          </div>
           <div className="profile-meta">
             <div className="profile-name">{user?.name || "Student"}</div>
-            <div className="profile-email">{user?.email || "student@email.com"}</div>
+            <div className="profile-email">
+              {user?.email || "student@email.com"}
+            </div>
           </div>
         </div>
 
         <nav className="side-links">
           <div className="nav-section-title">Modules</div>
           <Link to="/student-dashboard">Overview</Link>
-          <Link to="/student-dashboard/ai-chatbot">AI Chatbot</Link>
-          <Link to="/student-dashboard/lost-found">Lost & Found</Link>
-          <Link to="/student-dashboard/event-management">
-            Event Management
-          </Link>
+          <Link to="/student-dashboard/lost-found">Lost Item</Link>
+          <Link to="/student-dashboard/event-management">Event Management</Link>
           <Link to="/student-dashboard/complain-feedback">
             Complain & Feedback
           </Link>
+          <button className="nav-btn">AI Chatbot</button>
         </nav>
 
         <button className="btn btn-secondary logout-btn" onClick={logout}>

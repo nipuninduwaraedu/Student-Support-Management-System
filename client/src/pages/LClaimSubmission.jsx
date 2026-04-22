@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext.jsx';
+import { LF } from '../constants/lostFoundRoutes';
 
 const ClaimSubmission = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const ClaimSubmission = () => {
       await axios.post('http://localhost:5000/api/claims', form, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      navigate('/student');
+      navigate(LF.myClaims);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.errors) {
         setError(err.response.data.errors.map(e => e.msg).join(', '));
@@ -123,7 +124,7 @@ const ClaimSubmission = () => {
           </div>
 
           <div className="flex justify-end gap-4 mt-8">
-            <Link to={`/items/${id}`} className="btn btn-outline" disabled={submitting}>Cancel</Link>
+            <Link to={LF.item(id)} className="btn btn-outline" disabled={submitting}>Cancel</Link>
             <button type="submit" className="btn btn-primary" disabled={submitting || item?.status !== 'Available'}>
               {submitting ? 'Submitting...' : 'Submit Claim'}
             </button>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { LF } from '../constants/lostFoundRoutes';
 import axios from 'axios';
 import { Search } from 'lucide-react';
 
@@ -66,7 +67,7 @@ const LostItems = () => {
                     <strong>Location:</strong> {item.location} <br/>
                     <strong>Date:</strong> {new Date(item.date).toLocaleDateString()}
                   </p>
-                  <Link to={`/items/${item._id}`} className="btn btn-outline w-full" style={{ marginTop: '0.5rem' }}>
+                  <Link to={LF.item(item._id)} className="btn btn-outline w-full" style={{ marginTop: '0.5rem' }}>
                     View Details
                   </Link>
                 </div>

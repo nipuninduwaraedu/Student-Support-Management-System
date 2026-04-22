@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext.jsx';
+import { LF } from '../constants/lostFoundRoutes';
 import { Edit2, Trash2 } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -87,7 +88,7 @@ const StudentDashboard = () => {
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'white' }}>Lost something?</h2>
           <p style={{ opacity: 0.9 }}>Browse the list of reported items and claim yours.</p>
         </div>
-        <Link to="/items" className="btn" style={{ background: 'white', color: 'var(--primary)' }}>Browse Items</Link>
+        <Link to={LF.browse} className="btn" style={{ background: 'white', color: 'var(--primary)' }}>Browse Items</Link>
       </div>
 
       <h2 className="mb-4" style={{ fontSize: '1.5rem', fontWeight: 700 }}>My Claims</h2>
@@ -100,7 +101,7 @@ const StudentDashboard = () => {
           {myClaims.map(claim => (
             <div key={claim._id} className="card card-body">
               <div className="flex justify-between items-center mb-2">
-                <Link to={`/items/${claim.item?._id}`} style={{ fontWeight: 600, color: 'var(--primary)' }}>
+                <Link to={claim.item?._id ? LF.item(claim.item._id) : LF.browse} style={{ fontWeight: 600, color: 'var(--primary)' }}>
                   {claim.item?.name || 'Unknown Item'}
                 </Link>
                 <span className={`badge badge-${claim.status.toLowerCase()}`}>{claim.status}</span>

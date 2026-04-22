@@ -25,7 +25,7 @@ function AdminDashboard() {
         <nav className="side-links">
           <div className="nav-section-title">Modules</div>
           <Link to="/admin-dashboard">Overview</Link>
-          <Link to="/admin-dashboard/lost-found">Lost & Found</Link>
+          <Link to="/admin-dashboard/lost-found">Lost Item</Link>
           <Link to="/admin-dashboard/event-management">Event Management</Link>
           <Link to="/admin-dashboard/complain-feedback">
             Complain & Feedback

@@ -101,7 +101,7 @@ const AdminDashboard = () => {
             </div>
             <div className="form-group mb-0">
               <label className="form-label">Date Lost/Found</label>
-              <input type="date" className="form-input" required value={newItem.date} onChange={(e) => setNewItem({...newItem, date: e.target.value})} />
+              <input type="date" className="form-input" max={new Date().toISOString().split('T')[0]} required value={newItem.date} onChange={(e) => setNewItem({...newItem, date: e.target.value})} />
             </div>
             <div className="form-group mb-0">
               <label className="form-label">Location</label>

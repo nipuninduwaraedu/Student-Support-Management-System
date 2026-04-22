@@ -1,21 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { LF } from '../constants/lostFoundRoutes';
 import { Search, ShieldCheck, Clock } from 'lucide-react';
 
 const Home = () => {
-  const { user } = useAuth();
-
   return (
     <div>
       <section className="text-center mt-8 mb-8" style={{ padding: '4rem 0' }}>
-        <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--text-main)', letterSpacing: '-1px' }}>
-          Find What You Lost,<br /> Return What You Found.
+        <h1 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, marginBottom: '1rem', color: 'var(--text-dark, #111827)', letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+          Lost Item<br />In your campus
         </h1>
-        <p className="text-muted" style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
-          Welcome to the Student Lost and Found System. The easiest way to report lost items and claim what is rightfully yours on campus.
+        <p className="text-muted" style={{ fontSize: '1.05rem', maxWidth: '560px', margin: '0 auto 2rem', color: 'var(--text-light, #64748b)', lineHeight: 1.6 }}>
+          Items reported to student support appear here. Browse listings, then submit a claim with proof if you recognize something.
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/items" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 2rem' }}>
+          <Link to={LF.browse} className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 2rem' }}>
             <Search size={20} /> Browse Lost Items
           </Link>
 

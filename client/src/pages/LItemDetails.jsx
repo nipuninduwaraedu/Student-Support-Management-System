@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext.jsx';
+import { LF } from '../constants/lostFoundRoutes';
+import { isStudent } from '../utils/roles';
 import { MapPin, Calendar, CheckCircle } from 'lucide-react';
 
 const ItemDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -35,7 +36,7 @@ const ItemDetails = () => {
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <Link to="/items" className="text-muted" style={{ display: 'inline-block', marginBottom: '1.5rem', fontWeight: 500 }}>
+      <Link to={LF.browse} className="text-muted" style={{ display: 'inline-block', marginBottom: '1.5rem', fontWeight: 500 }}>
         &larr; Back to Lost Items
       </Link>
       <div className="card overflow-hidden">
@@ -74,8 +75,8 @@ const ItemDetails = () => {
             <p className="text-muted">Do you think this belongs to you?</p>
             {item.status === 'Available' ? (
               user ? (
-                user.role === 'Student' ? (
-                  <Link to={`/items/${item._id}/claim`} className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.125rem' }}>
+                isStudent(user) ? (
+                  <Link to={LF.claim(item._id)} className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.125rem' }}>
                     Claim This Item
                   </Link>
                 ) : (
