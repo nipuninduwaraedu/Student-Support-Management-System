@@ -62,7 +62,7 @@ function Login() {
                 name="email"
                 type="email"
                 autoComplete="username"
-                placeholder="you@university.edu"
+                placeholder="Enter your Emaill"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />

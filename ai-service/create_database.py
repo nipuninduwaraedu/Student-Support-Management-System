@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 from dotenv import load_dotenv
 from pathlib import Path
@@ -11,7 +11,6 @@ load_dotenv()
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data"
-
 
 def main():
     print("Starting database creation...")
@@ -43,9 +42,22 @@ def main():
         shutil.rmtree(CHROMA_PATH)
         print("  Cleared old database")
 
-    print("  Generating embeddings with OpenAI (this takes a minute)...")
-    embeddings = OpenAIEmbeddings()
-    Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_PATH)
+    print("  Generating embeddings with Google GenAI (this takes a minute)...")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+    
+    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
+    import time
+    batch_size = 50
+    for i in range(0, len(chunks), batch_size):
+        batch = chunks[i:i+batch_size]
+        print(f"  Adding batch {i//batch_size + 1}/{(len(chunks)-1)//batch_size + 1}...")
+        try:
+            db.add_documents(batch)
+            time.sleep(5)
+        except Exception as e:
+            print(f"Error on batch: {e}. Sleeping 60s...")
+            time.sleep(60)
+            db.add_documents(batch)
 
     print(f"Done! Database created with {len(chunks)} chunks.")
 

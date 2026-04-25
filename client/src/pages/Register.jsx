@@ -71,7 +71,7 @@ function Register() {
               <input
                 id="reg-name"
                 name="name"
-                placeholder="e.g. Jordan Lee"
+                placeholder="Enter your Name"
                 value={form.name}
                 onChange={onChange}
                 autoComplete="name"
@@ -83,7 +83,7 @@ function Register() {
                 id="reg-email"
                 name="email"
                 type="email"
-                placeholder="you@university.edu"
+                placeholder="Enter your Emaill"
                 value={form.email}
                 onChange={onChange}
                 autoComplete="email"
