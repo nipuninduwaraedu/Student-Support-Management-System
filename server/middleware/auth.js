@@ -1,14 +1,45 @@
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-module.exports = function(req, res, next) {
-    const token = req.header('Authorization')?.split(' ')[1];
-    if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
+const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded.user;
-        next();
-    } catch (err) {
-        res.status(401).json({ msg: 'Token is not valid' });
+export const auth = async (req, res, next) => {
+  try {
+    const raw = req.headers.authorization || "";
+    const token = raw.startsWith("Bearer ") ? raw.slice(7) : raw;
+    if (!token) {
+      return res.status(401).json({ message: "Authentication required" });
     }
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+    req.user = user;
+    next();
+  } catch {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+export const adminAuth = async (req, res, next) => {
+  try {
+    const raw = req.headers.authorization || "";
+    const token = raw.startsWith("Bearer ") ? raw.slice(7) : raw;
+    if (!token) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+    if (user.role !== "admin") {
+      return res.status(403).json({ message: "Admin access required" });
+    }
+    req.user = user;
+    next();
+  } catch {
+    return res.status(401).json({ message: "Invalid token" });
+  }
 };

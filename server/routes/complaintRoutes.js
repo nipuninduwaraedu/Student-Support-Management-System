@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const upload = require('../middleware/upload');
-const {
+import express from "express";
+import upload from "../middleware/upload.js";
+import {
   createComplaint,
   getComplaints,
   getComplaintById,
   updateComplaintStatus,
-} = require('../controllers/complaintController');
+} from "../controllers/complaintController.js";
 
-router.route('/')
-  .post(upload.single('file'), createComplaint)
+const router = express.Router();
+
+router
+  .route("/")
+  .post(upload.single("file"), createComplaint)
   .get(getComplaints);
 
-router.route('/:id')
-  .get(getComplaintById);
+router.route("/:id").get(getComplaintById);
 
-router.route('/:id/status')
-  .put(updateComplaintStatus);
+router.route("/:id/status").put(updateComplaintStatus);
 
-module.exports = router;
+export default router;

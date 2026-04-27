@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../services/authService";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext.jsx";
 import "../styles/auth.css";
 
 const getDashboardRouteByRole = (role) =>
@@ -37,63 +37,90 @@ function Register() {
 
   return (
     <div className="auth-layout">
-      <section className="auth-hero">
-        <h1>Create Your SSMS Account</h1>
-        <p>
-          Register as a student or admin to access Student Support Management System 
+      <section className="auth-hero auth-hero--compact" aria-labelledby="register-hero-title">
+        <span className="auth-hero-badge">Campus account</span>
+        <h1 id="register-hero-title">Join Student Support</h1>
+        <p className="auth-hero-lead">
+          Same tools as sign-in: requests, events, coursework, and lost &amp;
+          found—aligned to your role.
         </p>
-        <ul>
-          <li>Smart support With Lost Things</li>
-          <li>Your Module Specipic AI Chatbot</li>
-          <li>Faster response & Manage All Events</li>
+        <ul className="auth-hero-list auth-hero-list--tight">
+          <li>Role-based access only</li>
+          <li>Secure email and password</li>
+          <li>One consistent experience after you join</li>
         </ul>
       </section>
 
-      <section className="auth-card">
-        <h2>Register</h2>
-        <p className="muted">Get started in less than a minute.</p>
+      <div className="auth-panel-wrap">
+        <section className="auth-card auth-card--register" aria-labelledby="register-card-title">
+          <header className="auth-card-intro auth-card-intro--compact">
+            <h2 id="register-card-title" className="auth-card-title">
+              Create your account
+            </h2>
+            <p className="auth-card-sub">
+              Use your <strong>official name</strong> and{" "}
+              <strong>university email</strong>. Choose{" "}
+              <strong>Student</strong> or <strong>Administrator</strong> only if
+              you are allowed to run the desk.
+            </p>
+          </header>
 
-        <form onSubmit={handleSubmit}>
-          <label>Full Name</label>
-          <input
-            name="name"
-            placeholder="Enter your full name"
-            value={form.name}
-            onChange={onChange}
-          />
-          <label>Email</label>
-          <input
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-            value={form.email}
-            onChange={onChange}
-          />
-          <label>Password</label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Create a password"
-            value={form.password}
-            onChange={onChange}
-          />
-          <label>Role</label>
-          <select name="role" value={form.role} onChange={onChange}>
-            <option value="student">Student</option>
-            <option value="admin">Admin</option>
-          </select>
+          <form className="auth-form auth-form--register" onSubmit={handleSubmit}>
+            <div className="auth-field">
+              <label htmlFor="reg-name">Full name</label>
+              <input
+                id="reg-name"
+                name="name"
+                placeholder="e.g. Jordan Lee"
+                value={form.name}
+                onChange={onChange}
+                autoComplete="name"
+              />
+            </div>
+            <div className="auth-field">
+              <label htmlFor="reg-email">Email</label>
+              <input
+                id="reg-email"
+                name="email"
+                type="email"
+                placeholder="you@university.edu"
+                value={form.email}
+                onChange={onChange}
+                autoComplete="email"
+              />
+            </div>
+            <div className="auth-field">
+              <label htmlFor="reg-password">Password</label>
+              <input
+                id="reg-password"
+                name="password"
+                type="password"
+                placeholder="At least 6 characters"
+                value={form.password}
+                onChange={onChange}
+                autoComplete="new-password"
+              />
+            </div>
+            <div className="auth-field">
+              <label htmlFor="reg-role">Role</label>
+              <select id="reg-role" name="role" value={form.role} onChange={onChange}>
+                <option value="student">Student</option>
+                <option value="admin">Administrator</option>
+              </select>
+            </div>
 
-          {error && <p className="error">{error}</p>}
+            {error && <p className="error auth-field-full">{error}</p>}
 
-          <button className="btn" type="submit">
-            Create Account
-          </button>
-        </form>
+            <button className="btn auth-field-full" type="submit">
+              Complete registration
+            </button>
+          </form>
 
-        <p className="auth-switch">
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-      </section>
+          <p className="auth-switch">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </section>
+      </div>
     </div>
   );
 }

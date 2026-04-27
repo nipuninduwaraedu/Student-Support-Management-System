@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import './Navbar.css';
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext.jsx";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/login");
   };
 
   return (
@@ -19,36 +19,52 @@ const Navbar = () => {
         <ul className="nav-menu">
           {user ? (
             <>
-              {user.role === 'Student' && (
+              {user.role === "student" && (
                 <>
                   <li className="nav-item">
-                    <NavLink to="/dashboard" className={({ isActive }) => "nav-links" + (isActive ? " active" : "")}>
+                    <NavLink
+                      to="/student-dashboard"
+                      className={({ isActive }) =>
+                        "nav-links" + (isActive ? " active" : "")
+                      }
+                    >
                       Dashboard
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/complaint" className={({ isActive }) => "nav-links" + (isActive ? " active" : "")}>
+                    <NavLink
+                      to="/student-dashboard/complaints/new"
+                      className={({ isActive }) =>
+                        "nav-links" + (isActive ? " active" : "")
+                      }
+                    >
                       Complaints
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink to="/feedback" className={({ isActive }) => "nav-links" + (isActive ? " active" : "")}>
-                      Feedback
                     </NavLink>
                   </li>
                 </>
               )}
 
-              {user.role === 'Admin' && (
+              {user.role === "admin" && (
                 <li className="nav-item">
-                  <NavLink to="/admin" className={({ isActive }) => "nav-links" + (isActive ? " active" : "")}>
+                  <NavLink
+                    to="/admin-dashboard"
+                    className={({ isActive }) =>
+                      "nav-links" + (isActive ? " active" : "")
+                    }
+                  >
                     Admin Panel
                   </NavLink>
                 </li>
               )}
 
               <li className="nav-item">
-                <button onClick={handleLogout} className="nav-links logout-btn">Logout</button>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="nav-links logout-btn"
+                >
+                  Logout
+                </button>
               </li>
             </>
           ) : null}

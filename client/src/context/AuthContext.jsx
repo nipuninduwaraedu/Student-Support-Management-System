@@ -1,131 +1,89 @@
-import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
-
-// Create Context
-export const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
-  const [loading, setLoading] = useState(true);
-
-  // Re-hydrate user based on token if they refresh the page
-  useEffect(() => {
-    if (token) {
-      // Decode user from local storage info
-      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      if (userInfo) {
-        setUser(userInfo);
-      }
-    }
-    setLoading(false);
-  }, [token]);
-
-  const loginUser = async (email, password) => {
-    try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      setUser(data);
-      setToken(data.token);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return { success: true };
-    } catch (error) {
-      return { success: false, message: error.response?.data?.message || 'Login failed' };
-    }
-  };
-
-  const registerUser = async (userData) => {
-    try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', userData);
-      setUser(data);
-      setToken(data.token);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      return { success: true };
-    } catch (error) {
-      return { success: false, message: error.response?.data?.message || 'Registration failed' };
-    }
-  };
-
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('userInfo');
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, token, loading, loginUser, registerUser, logout }}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-};
-import { createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export const AuthContext = createContext();
+const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(
+  /\/$/,
+  ""
+);
 
-export const AuthProvider = ({ children }) => {
+export const AuthContext = createContext(null);
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return ctx;
+}
+
+export function AuthProvider({ children }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState(() => {
-    const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(stored) : null;
-  });
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On mount, check token and fetch user
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios
-        .get("http://localhost:5000/api/auth/me")
-        .then((res) => {
-          setUser(res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
-        })
-        .catch(() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          delete axios.defaults.headers.common["Authorization"];
-        })
-        .finally(() => setLoading(false));
-    } else {
+    if (!token) {
       setLoading(false);
+      return;
     }
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios
+      .get(`${API_BASE}/api/auth/me`)
+      .then((res) => {
+        setUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        delete axios.defaults.headers.common["Authorization"];
+        setUser(null);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  // Login
-  const login = async (email, password) => {
-    const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-    setUser(res.data.user);
-  };
+  const login = useCallback((data) => {
+    const token = data?.token;
+    const u = data?.user;
+    if (!token || !u) return;
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(u));
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    setUser(u);
+  }, []);
 
-  // Register
-  const register = async (name, email, password, role) => {
-    const res = await axios.post("http://localhost:5000/api/auth/register", { name, email, password, role });
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-    setUser(res.data.user);
-  };
-
-  // Logout
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     delete axios.defaults.headers.common["Authorization"];
     setUser(null);
     navigate("/login");
-  };
+  }, [navigate]);
+
+  const register = useCallback(
+    async (payload) => {
+      const res = await axios.post(`${API_BASE}/api/auth/register`, payload);
+      login(res.data);
+      return res.data.user;
+    },
+    [login]
+  );
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, logout, register }}
+    >
       {children}
     </AuthContext.Provider>
   );
-};
+}
+
+export default AuthProvider;
